@@ -10,7 +10,7 @@ export class App extends React.Component<IProps, any>
 	render()
 	{
 		return <ClassUI>
-			<NavBar logo="CSE"></NavBar>
+			<NavBar logo="Class-UI"></NavBar>
 			<Content></Content>
 		</ClassUI>
 	}
