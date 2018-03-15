@@ -1,14 +1,18 @@
 var copyWebpackPlugin = require("copy-webpack-plugin");
+var path = require('path');
 
 module.exports = {
-	entry: './index.tsx',
+	entry: {
+		bundle: './index.tsx'
+	},
 	
 	output: {
-		filename: 'bundle/bundle.js'
+		filename: 'bundle/[name].js',
+		path: path.resolve(__dirname, "")
 	},
 	
 	module: {
-		loaders: [
+		rules: [
 			{
 				test: /\.tsx?$/,
 				loader: 'source-map-loader'
@@ -29,14 +33,17 @@ module.exports = {
 	},
 	plugins: [
 		new copyWebpackPlugin([{
-			from: 'node_modules/classui/bundle/classui.css',
-			to: 'bundle/classui.css'
+			from: 'node_modules/classui/assets/font-awesome',
+			to: 'bundle/font-awesome'
 		}])
 	],
+	mode: "development",
+
 	devtool: 'source-map',
 	
 	devServer: {
 		host: '0.0.0.0',
-		port: "2002"
+		port: "2002",
+		
 	}
 };
