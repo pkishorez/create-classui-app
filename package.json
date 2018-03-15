@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "./node_modules/.bin/webpack --config ./webpack.production.config.js",
+		"sass": "./node_modules/.bin/node-sass sass/main.scss bundle/main.css -w",
 		"start": "./node_modules/.bin/webpack-dev-server"
 	},
 	"dependencies": {
@@ -12,8 +12,13 @@
 	},
 	"devDependencies": {
 		"copy-webpack-plugin": "^4.0.1",
-		"webpack": "^3.6.0",
-		"webpack-dev-server": "^2.8.2"
+		"node-sass": "^4.7.2",
+		"source-map-loader": "^0.2.3",
+		"ts-loader": "^4.0.1",
+		"typescript": "^2.7.2",
+		"webpack": "^4.1.1",
+		"webpack-cli": "^2.0.12",
+		"webpack-dev-server": "^3.1.1"
 	},
 	"author": "Kishore <kishore.iiitn@gmail.com>",
 	"license": "ISC"
