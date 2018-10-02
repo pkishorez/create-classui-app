@@ -25,7 +25,7 @@ copy(__dirname + "/src", srcDirectory, {
 		"!node_modules/**",
 		"!package-lock.json"
 	],
-	overwrite: true
+	overwrite: false
 })
 	.on(copy.events.COPY_FILE_START, function(copyOperation) {
 		console.info("Copying file " + copyOperation.src + "...");
