@@ -1,0 +1,26 @@
+{
+	"name": "create-classui-app",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "webpack-dev-server"
+	},
+	"dependencies": {
+		"classui": "../Class-UI/dist/",
+		"@types/react": "^16.4.14",
+		"@types/react-dom": "^16.0.7",
+		"react": "^16.5.0",
+		"react-dom": "^16.5.0"
+	},
+	"devDependencies": {
+		"source-map-loader": "*",
+		"ts-loader": "*",
+		"typescript": "*",
+		"webpack": "*",
+		"webpack-cli": "*",
+		"webpack-dev-server": "*"
+	},
+	"author": "Kishore <kishore.iiitn@gmail.com>",
+	"license": "ISC"
+}

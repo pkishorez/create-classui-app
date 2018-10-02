@@ -1,25 +1,29 @@
 {
-	"name": "class-ui-starter",
+	"name": "create-classui-app",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"sass": "./node_modules/.bin/node-sass sass/main.scss bundle/bundle.css -w",
-		"start": "./node_modules/.bin/webpack-dev-server"
+		"test": "echo \"Error: no test specified\" && exit 1"
 	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kishoreiiitn/create-classui-app.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/kishoreiiitn/create-classui-app/issues"
+	},
+	"homepage": "https://github.com/kishoreiiitn/create-classui-app#readme",
 	"dependencies": {
-		"classui": "*"
-	},
-	"devDependencies": {
-		"copy-webpack-plugin": "^4.0.1",
-		"node-sass": "^4.7.2",
-		"source-map-loader": "^0.2.3",
-		"ts-loader": "^4.0.1",
-		"typescript": "^2.7.2",
-		"webpack": "^4.1.1",
-		"webpack-cli": "^2.0.12",
-		"webpack-dev-server": "^3.1.1"
-	},
-	"author": "Kishore <kishore.iiitn@gmail.com>",
-	"license": "ISC"
+		"chalk": "^2.4.1",
+		"clear": "^0.1.0",
+		"figlet": "^1.2.0",
+		"inquirer": "^6.2.0",
+		"minimist": "^1.2.0",
+		"node-fs-extra": "^0.8.2",
+		"recursive-copy": "^2.0.9"
+	}
 }
