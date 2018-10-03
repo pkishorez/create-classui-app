@@ -9,13 +9,34 @@ const fse = require("node-fs-extra");
 const config = require("minimist")(process.argv);
 const fs = require("fs");
 const path = require("path");
+const exec = require("child_process").exec;
+const loading = require("loading-cli");
 
+clear();
 console.log(
-	chalk.green(figlet.textSync("ClassUI", { horizontalLayout: "full" }))
+	chalk.green(
+		figlet.textSync("classui", {
+			// font: "Banner4",
+			horizontalLayout: "fitted"
+		})
+	)
 );
+console.log();
 
-const srcDirectory = config.src || config._[config._.length - 1];
-console.log("Copying to ", srcDirectory);
+const srcDirectory = path.format({
+	dir: config.src || config._[config._.length - 1]
+});
+if (fs.existsSync(srcDirectory)) {
+	console.log(
+		chalk.red(
+			`Exiting : Project directory ${chalk.bold(
+				srcDirectory
+			)} already exists.`
+		)
+	);
+	process.exit();
+}
+console.log(chalk.green("Copying to ", srcDirectory));
 // Copy src directory to srcDirectory.
 
 copy(__dirname + "/src", srcDirectory, {
@@ -36,31 +57,39 @@ copy(__dirname + "/src", srcDirectory, {
 		console.info("Copied to " + copyOperation.dest);
 	})
 	.on(copy.events.ERROR, function(error, copyOperation) {
-		console.error("Unable to copy " + copyOperation.dest);
+		console.log(chalk.red("Unable to copy " + copyOperation.dest));
 	})
 	.then(function(results) {
 		if (config.test) {
 			const package = fse.readJsonSync("./src/package.json");
 			package.dependencies.classui = "../Class-UI/dist/";
-			const destination = file =>
-				path.format({
-					dir: srcDirectory,
-					base: file
-				});
 			fse.copyFileSync(
 				__dirname + "/src/.gitignore",
-				destination(".gitignore")
+				srcDirectory + ".gitignore"
 			);
 			fs.writeFileSync(
-				destination("package.json"),
+				srcDirectory + "package.json",
 				JSON.stringify(package, undefined, "\t")
-			);
-			console.log(
-				chalk.green("Successfully create classui app. Happy coding!")
 			);
 		}
 		console.info(results.length + " file(s) copied");
+		console.log(
+			chalk.green(
+				`Successfully created classui app at ${srcDirectory}.\nHappy coding!`
+			)
+		);
+		const load = loading("(1/1) Installing packages...").start();
+		const p = exec(
+			"npm install",
+			{
+				cwd: srcDirectory
+			},
+			(error, stdout, stderr) => {
+				load.stop();
+				console.log("NPM Installed successfully.");
+			}
+		);
 	})
 	.catch(function(error) {
-		return console.error("Copy failed: " + error);
+		// ignore error!
 	});
