@@ -1,13 +1,13 @@
 {
 	"name": "create-classui-app",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Class-UI App.",
 	"main": "index.js",
 	"scripts": {
 		"start": "webpack-dev-server"
 	},
 	"dependencies": {
-		"classui": "*",
+		"classui": "../../Class-UI/dist/",
 		"@types/react": "^16.4.14",
 		"@types/react-dom": "^16.0.7",
 		"react": "^16.5.0",

@@ -64,30 +64,33 @@ copy(__dirname + "/src", srcDirectory, {
 	})
 	.then(function(results) {
 
-		// THIS IS FOR TEST PURPOSES ONLY.
-		if (config.test) {
-			const package = fse.readJsonSync("./src/package.json");
-			package.dependencies.classui = "../Class-UI/dist/";
-			fs.writeFileSync(
-				srcDirectory + "package.json",
-				JSON.stringify(package, undefined, "\t")
-			);
-		}
-		console.info(results.length + " file(s) copied");
-		console.log(
-			chalk.green(
-				`Successfully created classui app at ${srcDirectory}.\nHappy coding!`
-			)
+		// This same package is used for testing locally too..
+		const package = fse.readJsonSync("./src/package.json");
+		package.dependencies.classui = "*";
+		fs.writeFileSync(
+			srcDirectory + "package.json",
+			JSON.stringify(package, undefined, "\t")
 		);
+		console.info(results.length + " file(s) copied");
+
 		const load = loading("(1/1) Installing packages...").start();
 		const p = exec(
-			"npm install",
+			"npm install --save",
 			{
 				cwd: srcDirectory
 			},
 			(error, stdout, stderr) => {
 				load.stop();
-				console.log("NPM Installed successfully.");
+				if (error!==null) {
+					console.log(error);
+				}
+				else {
+					console.log(
+						chalk.green(
+							`Successfully created classui app at ${srcDirectory}.\nHappy coding!`
+						)
+					);
+				}
 			}
 		);
 	})
