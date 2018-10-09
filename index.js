@@ -27,14 +27,17 @@ const srcDirectory = path.format({
 	dir: config.src || config._[config._.length - 1]
 });
 if (fs.existsSync(srcDirectory)) {
-	console.log(
-		chalk.red(
-			`Exiting : Project directory ${chalk.bold(
-				srcDirectory
-			)} already exists.`
-		)
-	);
-	process.exit();
+	const files = fs.readdirSync(srcDirectory);
+	if (files.length > 0) {
+		console.log(
+			chalk.red(
+				`Exiting : Project directory ${chalk.bold(
+					srcDirectory
+				)} already exists.`
+			)
+		);
+		process.exit();
+	}
 }
 console.log(chalk.green("Copying to ", srcDirectory));
 // Copy src directory to srcDirectory.
@@ -51,7 +54,7 @@ copy(__dirname + "/src", srcDirectory, {
 	overwrite: false
 })
 	.on(copy.events.COPY_FILE_START, function(copyOperation) {
-		console.info("Copying file " + copyOperation.src + "...");
+		// console.info("Copying file " + copyOperation.src + "...");
 	})
 	.on(copy.events.COPY_FILE_COMPLETE, function(copyOperation) {
 		console.info("Copied to " + copyOperation.dest);
@@ -60,6 +63,8 @@ copy(__dirname + "/src", srcDirectory, {
 		console.log(chalk.red("Unable to copy " + copyOperation.dest));
 	})
 	.then(function(results) {
+
+		// THIS IS FOR TEST PURPOSES ONLY.
 		if (config.test) {
 			const package = fse.readJsonSync("./src/package.json");
 			package.dependencies.classui = "../Class-UI/dist/";
