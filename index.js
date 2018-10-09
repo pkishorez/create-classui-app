@@ -68,10 +68,6 @@ copy(__dirname + "/src", srcDirectory, {
 		if (config.test) {
 			const package = fse.readJsonSync("./src/package.json");
 			package.dependencies.classui = "../Class-UI/dist/";
-			fse.copyFileSync(
-				__dirname + "/src/.gitignore",
-				srcDirectory + ".gitignore"
-			);
 			fs.writeFileSync(
 				srcDirectory + "package.json",
 				JSON.stringify(package, undefined, "\t")
